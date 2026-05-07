@@ -658,9 +658,9 @@
       <div class="panel-title">¿Cuánto pagás hoy?</div>
       <div class="input-wrap">
         <span>$</span>
-        <input id="amount" type="number" min="0" step="100" value="15000" />
+        <input id="amount" type="number" min="0" step="100" value="150000" />
       </div>
-      <div class="price-display" id="beforePrice">$15.000</div>
+      <div class="price-display" id="beforePrice">$150.000</div>
     </div>
 
     <div class="culprit">
@@ -697,7 +697,7 @@
     <div class="panel after">
       <div class="panel-label">Después · Sin subsidio</div>
       <div class="panel-title">Lo que vas a pagar</div>
-      <div class="price-display" id="afterPrice">$22.500</div>
+      <div class="price-display" id="afterPrice">$225.000</div>
       <div style="text-align:center;">
         <span class="increase-badge">▲ +50% MÁS CARO</span>
       </div>
@@ -771,7 +771,7 @@
       diffEl.textContent = '+' + fmt.format(diff) + ' de tu bolsillo';
     }
 
-    let currentAfter = 22500;
+    let currentAfter = 225000;
     function animateNumber(el, target) {
       const start = currentAfter;
       const duration = 600;
