@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cornejo te saca el subsidio de zona fría</title>
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="El tarifazo del gas" />
+<meta property="og:description" content="Conocé cómo estos van a liquidarte el salario con el gas" />
+<meta property="og:image" content="cornejo.png" />
+<meta property="og:locale" content="es_AR" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="El tarifazo del gas" />
+<meta name="twitter:description" content="Conocé cómo estos van a liquidarte el salario con el gas" />
+<meta name="twitter:image" content="cornejo.png" />
+
+<meta name="description" content="Conocé cómo estos van a liquidarte el salario con el gas" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Arial Black', 'Helvetica', sans-serif;
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a15 100%);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Fuego de fondo */
+  .fire-bg {
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(255, 80, 0, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 0, 80, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  header {
+    text-align: center;
+    padding: 30px 20px 10px;
+    position: relative;
+    z-index: 2;
+  }
+
+  header h1 {
+    font-size: clamp(1.5rem, 4vw, 2.8rem);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #ff4444, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 100, 0, 0.5);
+    animation: shake-title 0.5s ease-in-out infinite;
+  }
+
+  @keyframes shake-title {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+  }
+
+  header p {
+    margin-top: 8px;
+    font-size: 1rem;
+    color: #ffcc00;
+    font-weight: bold;
+  }
+
+  .stage {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (max-width: 900px) {
+    .stage {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .panel {
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .panel.before {
+    border-color: #4caf50;
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+  }
+
+  .panel.after {
+    border-color: #ff3333;
+    box-shadow: 0 0 30px rgba(255, 51, 51, 0.4);
+    animation: alarm 1.2s ease-in-out infinite;
+  }
+
+  @keyframes alarm {
+    0%, 100% { box-shadow: 0 0 30px rgba(255, 51, 51, 0.4); }
+    50% { box-shadow: 0 0 60px rgba(255, 51, 51, 0.8); }
+  }
+
+  .panel-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    opacity: 0.8;
+  }
+
+  .panel.before .panel-label { color: #4caf50; }
+  .panel.after .panel-label { color: #ff5555; }
+
+  .panel-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    font-weight: 900;
+  }
+
+  .input-wrap {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .input-wrap span {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: #4caf50;
+    font-weight: 900;
+  }
+
+  #amount {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(76, 175, 80, 0.5);
+    color: #fff;
+    padding: 18px 18px 18px 50px;
+    font-size: 2rem;
+    font-weight: 900;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+
+  #amount:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+  }
+
+  .price-display {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    text-align: center;
+    margin: 20px 0;
+    line-height: 1;
+  }
+
+  .panel.after .price-display {
+    color: #ff3333;
+    text-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
+    animation: bounce-price 0.8s ease-in-out infinite;
+  }
+
+  @keyframes bounce-price {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .increase-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff0000, #ff6600);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 900;
+    margin-top: 10px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  }
+
+  .increase-amount {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 1.1rem;
+    color: #ffaa00;
+    font-weight: bold;
+  }
+
+  /* Cornejo container */
+  .culprit {
+    position: relative;
+    text-align: center;
+    width: 280px;
+  }
+
+  @media (max-width: 900px) {
+    .culprit {
+      width: 220px;
+      margin: 0 auto;
+    }
+  }
+
+  .culprit-frame {
+    position: relative;
+    display: inline-block;
+    animation: cornejo-laugh 0.45s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+
+  @keyframes cornejo-laugh {
+    0%   { transform: translateY(0)    rotate(0deg)   scaleY(1); }
+    20%  { transform: translateY(-8px) rotate(-2deg)  scaleY(1.02); }
+    40%  { transform: translateY(0)    rotate(0deg)   scaleY(0.98); }
+    60%  { transform: translateY(-6px) rotate(2deg)   scaleY(1.02); }
+    80%  { transform: translateY(0)    rotate(0deg)   scaleY(0.99); }
+    100% { transform: translateY(0)    rotate(0deg)   scaleY(1); }
+  }
+
+  /* burbujas JAJAJA */
+  .laugh-bubbles {
+    position: absolute;
+    top: 35%;
+    left: -40px;
+    pointer-events: none;
+    z-index: 4;
+  }
+  .laugh-bubbles.right {
+    left: auto;
+    right: -40px;
+  }
+
+  .ja {
+    position: absolute;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #fff;
+    background: #ff3333;
+    padding: 6px 14px;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.7);
+    white-space: nowrap;
+    opacity: 0;
+    animation: pop-ja 1.6s ease-out infinite;
+    transform-origin: center;
+  }
+
+  .ja:nth-child(1) { animation-delay: 0s;    top: 0px;   left: -10px; }
+  .ja:nth-child(2) { animation-delay: 0.4s;  top: 40px;  left: 20px;  background: #ff6600; }
+  .ja:nth-child(3) { animation-delay: 0.8s;  top: 80px;  left: -20px; background: #ffaa00; color: #000; }
+  .ja:nth-child(4) { animation-delay: 1.2s;  top: 120px; left: 10px;  background: #ff3333; }
+
+  @keyframes pop-ja {
+    0%   { opacity: 0; transform: scale(0.3) translateY(0); }
+    20%  { opacity: 1; transform: scale(1.1) translateY(-5px); }
+    50%  { opacity: 1; transform: scale(1) translateY(-15px) rotate(-5deg); }
+    100% { opacity: 0; transform: scale(0.8) translateY(-40px) rotate(-10deg); }
+  }
+
+  /* Emoji carcajada flotante */
+  .laugh-emoji {
+    position: absolute;
+    font-size: 1.8rem;
+    pointer-events: none;
+    opacity: 0;
+    animation: float-laugh 2s ease-out infinite;
+  }
+
+  .laugh-emoji.e1 { top: 20%; left: -30px; animation-delay: 0s; }
+  .laugh-emoji.e2 { top: 60%; right: -30px; animation-delay: 0.6s; }
+  .laugh-emoji.e3 { top: 10%; right: -10px; animation-delay: 1.2s; }
+  .laugh-emoji.e4 { top: 50%; left: -10px; animation-delay: 1.8s; }
+
+  @keyframes float-laugh {
+    0%   { opacity: 0; transform: translateY(0) scale(0.5) rotate(0deg); }
+    20%  { opacity: 1; transform: translateY(-10px) scale(1.1) rotate(-10deg); }
+    100% { opacity: 0; transform: translateY(-80px) scale(0.7) rotate(20deg); }
+  }
+
+  .culprit img,
+  .culprit .placeholder {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    border-radius: 12px;
+    filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.6));
+  }
+
+  .placeholder {
+    aspect-ratio: 3/4;
+    background: linear-gradient(180deg, #2a2a3e, #1a1a2e);
+    border: 2px dashed rgba(255, 100, 100, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 20px;
+    line-height: 1.5;
+  }
+
+  .culprit-label {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-5deg);
+    background: #ff0000;
+    color: #fff;
+    padding: 8px 24px;
+    font-size: 1.4rem;
+    font-weight: 900;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+    animation: stamp 1.5s ease-in-out infinite;
+    z-index: 3;
+    white-space: nowrap;
+  }
+
+  @keyframes stamp {
+    0%, 100% { transform: translateX(-50%) rotate(-5deg) scale(1); }
+    50% { transform: translateX(-50%) rotate(-5deg) scale(1.1); }
+  }
+
+  .culprit-name {
+    margin-top: 16px;
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffcc00;
+  }
+
+  .culprit-quote {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    font-weight: normal;
+  }
+
+  /* Flecha de subida */
+  .arrow {
+    position: absolute;
+    font-size: 3rem;
+    color: #ff3333;
+    animation: arrow-up 1s ease-in-out infinite;
+  }
+
+  @keyframes arrow-up {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(-15px); opacity: 0.6; }
+  }
+
+  /* Billetes que vuelan */
+  .money {
+    position: fixed;
+    font-size: 2rem;
+    pointer-events: none;
+    z-index: 1;
+    animation: fly-away 4s linear infinite;
+  }
+
+  @keyframes fly-away {
+    0% {
+      transform: translate(0, 100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+      transform: translate(var(--end-x), -100px) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* CTA WhatsApp */
+  .share-section {
+    text-align: center;
+    padding: 20px 20px 10px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #25d366;
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .share-btn:hover,
+  .share-btn:focus {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.7);
+  }
+
+  .share-btn:active { transform: translateY(0) scale(1); }
+
+  .share-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+  }
+
+  .share-hint {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Sección socios */
+  .partners {
+    max-width: 700px;
+    margin: 30px auto 10px;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .partners-title {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffaa00;
+    margin-bottom: 20px;
+    font-weight: 900;
+  }
+
+  .partners-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .partner {
+    width: 140px;
+    text-align: center;
+    position: relative;
+    animation: cornejo-laugh 0.55s ease-in-out infinite;
+  }
+
+  .partner:nth-child(3) { animation-delay: 0.15s; }
+
+  .partner img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #ff3333;
+    filter: drop-shadow(0 0 20px rgba(255, 51, 51, 0.6));
+  }
+
+  .partner-name {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: #ffcc00;
+    text-transform: uppercase;
+  }
+
+  .partners-handshake {
+    font-size: 2.5rem;
+    animation: pulse-shake 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse-shake {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.15) rotate(8deg); }
+  }
+
+  .partners-caption {
+    margin-top: 18px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+  }
+
+  /* Splash de entrada */
+  .splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #050510 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+
+  .splash.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .splash h2 {
+    font-size: clamp(1.6rem, 6vw, 2.8rem);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #ff4444, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    animation: shake-title 0.5s ease-in-out infinite;
+  }
+
+  .splash p {
+    font-size: 1rem;
+    color: #ffcc00;
+    margin-bottom: 30px;
+    max-width: 420px;
+  }
+
+  .splash-btn {
+    background: linear-gradient(135deg, #ff3333, #ff6600);
+    color: #fff;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    padding: 22px 40px;
+    border-radius: 60px;
+    font-size: 1.25rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255, 51, 51, 0.6);
+    animation: bounce-price 0.8s ease-in-out infinite;
+    font-family: inherit;
+  }
+
+  .splash-btn:hover { transform: scale(1.05); }
+
+  .splash-hint {
+    margin-top: 18px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Video Vadillo */
+  .video-section {
+    max-width: 420px;
+    margin: 30px auto 10px;
+    padding: 20px 20px 10px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .video-title {
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffaa00;
+    margin-bottom: 6px;
+    font-weight: 900;
+  }
+
+  .video-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 18px;
+  }
+
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 3px solid #ff3333;
+    box-shadow: 0 0 30px rgba(255, 51, 51, 0.4);
+    background: #000;
+  }
+
+  .video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 2;
+  }
+
+  footer strong { color: #ffcc00; }
+</style>
+</head>
+<body>
+  <div class="fire-bg"></div>
+
+  <div id="splash" class="splash">
+    <h2>El tarifazo que se viene y nadie te lo dice</h2>
+    <p>¿Cómo vas a comer después de esto?</p>
+    <button id="splashBtn" class="splash-btn">🔥 Mostrame</button>
+    <div class="splash-hint">Tocá para entrar (con sonido)</div>
+  </div>
+
+  <audio id="laughAudio" src="risas.mp3" preload="auto"></audio>
+
+  <header>
+    <h1>El tarifazo del gas</h1>
+    <p>Calculá cuánto te sube la boleta sin el subsidio de zona fría</p>
+  </header>
+
+  <main class="stage">
+
+    <div class="panel before">
+      <div class="panel-label">Antes · Con subsidio</div>
+      <div class="panel-title">¿Cuánto pagás hoy?</div>
+      <div class="input-wrap">
+        <span>$</span>
+        <input id="amount" type="number" min="0" step="100" value="15000" />
+      </div>
+      <div class="price-display" id="beforePrice">$15.000</div>
+    </div>
+
+    <div class="culprit">
+      <div class="culprit-frame">
+        <div class="culprit-label">Culpable</div>
+
+        <div class="laugh-bubbles">
+          <div class="ja">JA</div>
+          <div class="ja">JAJA</div>
+          <div class="ja">JAJAJA</div>
+          <div class="ja">JA!</div>
+        </div>
+        <div class="laugh-bubbles right">
+          <div class="ja">JAJA</div>
+          <div class="ja">JA!</div>
+          <div class="ja">JAJAJA</div>
+          <div class="ja">JA</div>
+        </div>
+
+        <span class="laugh-emoji e1">😂</span>
+        <span class="laugh-emoji e2">🤣</span>
+        <span class="laugh-emoji e3">😂</span>
+        <span class="laugh-emoji e4">🤣</span>
+
+        <img src="cornejo.png" alt="Alfredo Cornejo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="placeholder" style="display:none;">
+          Dropeá la foto<br/>de cuerpo entero<br/>como <strong>cornejo.png</strong><br/>en esta carpeta
+        </div>
+      </div>
+      <div class="culprit-name">Alfredo Cornejo</div>
+      <div class="culprit-quote">"Se ríe mientras te llega<br/>la boleta del gas"</div>
+    </div>
+
+    <div class="panel after">
+      <div class="panel-label">Después · Sin subsidio</div>
+      <div class="panel-title">Lo que vas a pagar</div>
+      <div class="price-display" id="afterPrice">$22.500</div>
+      <div style="text-align:center;">
+        <span class="increase-badge">▲ +50% MÁS CARO</span>
+      </div>
+      <div class="increase-amount" id="diffAmount">+$7.500 de tu bolsillo</div>
+    </div>
+
+  </main>
+
+  <section class="share-section">
+    <a id="shareBtn" class="share-btn" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3c.1.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/>
+        <path d="M20.5 3.5C18.3 1.2 15.3 0 12.1 0 5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7c1.7.9 3.7 1.4 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.4zm-8.4 18.2c-1.7 0-3.4-.5-4.9-1.3l-.4-.2-3.7 1 1-3.7-.2-.4c-.9-1.5-1.4-3.2-1.4-4.9 0-5.3 4.3-9.7 9.7-9.7 2.6 0 5 1 6.8 2.9 1.8 1.8 2.9 4.3 2.9 6.8 0 5.3-4.3 9.7-9.8 9.7z"/>
+      </svg>
+      Compartir por WhatsApp
+    </a>
+    <p class="share-hint">Mandá esta página a tu familiar para que sepas lo que ellos van a hacer con la economía de su hogar</p>
+  </section>
+
+  <section class="partners">
+    <div class="partners-title">· Los socios del tarifazo ·</div>
+    <div class="partners-stage">
+      <div class="partner">
+        <img src="cornejo.png" alt="Alfredo Cornejo" />
+        <div class="partner-name">Cornejo</div>
+      </div>
+      <div class="partners-handshake">🤝</div>
+      <div class="partner">
+        <img src="milei.jpeg" alt="Javier Milei" />
+        <div class="partner-name">Milei</div>
+      </div>
+    </div>
+    <p class="partners-caption">Se ríen juntos mientras te llega la boleta 😂🤣</p>
+  </section>
+
+  <section class="video-section">
+    <div class="video-title">· Mario Vadillo lo explica ·</div>
+    <div class="video-subtitle">Mirá qué dice sobre el tarifazo y la quita del subsidio</div>
+    <div class="video-wrap">
+      <iframe
+        id="vadilloVideo"
+        src="https://www.youtube.com/embed/tGTScHv4VWM?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1"
+        title="Mario Vadillo - Tarifazo del gas"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <footer>
+    Hacé pasar la voz · <strong>#ZonaFría</strong> · <strong>#Mendoza</strong>
+  </footer>
+
+  <script>
+    const input = document.getElementById('amount');
+    const beforeEl = document.getElementById('beforePrice');
+    const afterEl = document.getElementById('afterPrice');
+    const diffEl = document.getElementById('diffAmount');
+
+    const fmt = new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency: 'ARS',
+      maximumFractionDigits: 0
+    });
+
+    function update() {
+      const v = parseFloat(input.value) || 0;
+      const after = v * 1.5;
+      const diff = after - v;
+      beforeEl.textContent = fmt.format(v);
+      animateNumber(afterEl, after);
+      diffEl.textContent = '+' + fmt.format(diff) + ' de tu bolsillo';
+    }
+
+    let currentAfter = 22500;
+    function animateNumber(el, target) {
+      const start = currentAfter;
+      const duration = 600;
+      const t0 = performance.now();
+      function step(now) {
+        const p = Math.min((now - t0) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = start + (target - start) * eased;
+        el.textContent = fmt.format(val);
+        if (p < 1) requestAnimationFrame(step);
+        else currentAfter = target;
+      }
+      requestAnimationFrame(step);
+    }
+
+    input.addEventListener('input', update);
+    update();
+
+    // Botón WhatsApp con texto dinámico
+    const shareBtn = document.getElementById('shareBtn');
+    function buildShareLink() {
+      const v = parseFloat(input.value) || 0;
+      const after = v * 1.5;
+      const diff = after - v;
+      const url = window.location.href.split('#')[0];
+      const text =
+        'Compartí cómo van a arrasar con tu salario. Van por todo.\n\n' + url;
+      return 'https://wa.me/?text=' + encodeURIComponent(text);
+    }
+    function refreshShare() { shareBtn.href = buildShareLink(); }
+    input.addEventListener('input', refreshShare);
+    refreshShare();
+
+    // Splash: el click del usuario destraba autoplay con sonido
+    const splash = document.getElementById('splash');
+    const splashBtn = document.getElementById('splashBtn');
+    const laughAudio = document.getElementById('laughAudio');
+    const vadilloVideo = document.getElementById('vadilloVideo');
+    laughAudio.volume = 0.8;
+
+    function unmuteVideo() {
+      try {
+        vadilloVideo.contentWindow.postMessage(
+          '{"event":"command","func":"unMute","args":""}', '*');
+        vadilloVideo.contentWindow.postMessage(
+          '{"event":"command","func":"setVolume","args":[100]}', '*');
+        vadilloVideo.contentWindow.postMessage(
+          '{"event":"command","func":"playVideo","args":""}', '*');
+      } catch (e) {}
+    }
+
+    splashBtn.addEventListener('click', () => {
+      laughAudio.play().catch(() => {});
+      unmuteVideo();
+      splash.classList.add('hidden');
+      setTimeout(() => splash.remove(), 600);
+    });
+
+    // Billetes volando
+    const emojis = ['💸', '💵', '💰', '🔥'];
+    function spawnMoney() {
+      const m = document.createElement('div');
+      m.className = 'money';
+      m.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      m.style.left = Math.random() * 100 + 'vw';
+      m.style.setProperty('--end-x', (Math.random() * 200 - 100) + 'px');
+      m.style.animationDuration = (3 + Math.random() * 3) + 's';
+      document.body.appendChild(m);
+      setTimeout(() => m.remove(), 6000);
+    }
+    setInterval(spawnMoney, 400);
+  </script>
+</body>
+</html>
